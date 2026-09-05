@@ -1,0 +1,972 @@
+<!DOCTYPE html>
+<html lang="ja">
+    
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <title>GOGO MOTOR | VEHICLE COLLECTION</title>
+        
+        <style>
+            
+            * {
+                box-sizing: border-box;
+            }
+            
+            body {
+                margin: 0;
+                background: #111;
+                color: #fff;
+                font-family:
+                    -apple-system,
+                    BlinkMacSystemFont,
+                    "Noto Sans JP",
+                    "Yu Gothic",
+                    "Meiryo",
+                    sans-serif;
+            }
+            
+            
+            /* =========================
+           ヘッダー
+        ========================= */
+            
+            header {
+                background: #111;
+                padding: 55px 30px 45px;
+                border-bottom: 1px solid #292929;
+            }
+            
+            .header-inner {
+                max-width: 1200px;
+                margin: auto;
+                
+                display: flex;
+                align-items: flex-end;
+                justify-content: space-between;
+            }
+            
+            .logo-area {
+                text-align: left;
+            }
+            
+            .logo-small {
+                font-size: 12px;
+                letter-spacing: 5px;
+                color: #ff6a00;
+                font-weight: bold;
+                margin-bottom: 8px;
+            }
+            
+            header h1 {
+                margin: 0;
+                font-size: 48px;
+                letter-spacing: 2px;
+                line-height: 1;
+            }
+            
+            .header-description {
+                color: #777;
+                font-size: 12px;
+                letter-spacing: 2px;
+            }
+            
+            
+            /* =========================
+           検索エリア
+        ========================= */
+            
+            .search-area {
+                max-width: 1200px;
+                margin: 0 auto;
+                padding: 35px 20px 15px;
+            }
+            
+            .search-title {
+                font-size: 11px;
+                color: #ff6a00;
+                letter-spacing: 3px;
+                font-weight: bold;
+                margin-bottom: 10px;
+            }
+            
+            .search-box {
+                display: flex;
+                border-bottom: 1px solid #555;
+                padding-bottom: 8px;
+            }
+            
+            .search-box input {
+                flex: 1;
+                
+                background: transparent;
+                border: none;
+                outline: none;
+                
+                color: white;
+                font-size: 18px;
+                padding: 10px 0;
+            }
+            
+            .search-box input::placeholder {
+                color: #666;
+            }
+            
+            .search-button {
+                border: none;
+                background: transparent;
+                color: #ff6a00;
+                
+                font-size: 20px;
+                font-weight: bold;
+                
+                cursor: pointer;
+                padding: 0 10px;
+            }
+            
+            
+            /* =========================
+           カテゴリー
+        ========================= */
+            
+            .category-area {
+                max-width: 1200px;
+                margin: 0 auto;
+                padding: 20px;
+            }
+            
+            .category-label {
+                color: #777;
+                font-size: 11px;
+                letter-spacing: 2px;
+                margin-bottom: 12px;
+            }
+            
+            .categories {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 7px;
+            }
+            
+            .category {
+                border: 1px solid #333;
+                
+                background: #191919;
+                color: #aaa;
+                
+                padding: 9px 15px;
+                
+                cursor: pointer;
+                
+                font-size: 12px;
+                letter-spacing: 1px;
+                
+                transition: 0.2s;
+            }
+            
+            .category:hover {
+                border-color: #777;
+                color: white;
+            }
+            
+            .category.active {
+                background: #ff6a00;
+                border-color: #ff6a00;
+                color: white;
+            }
+            
+            
+            /* =========================
+           件数
+        ========================= */
+            
+            .result-area {
+                max-width: 1200px;
+                margin: 15px auto 0;
+                padding: 0 20px;
+                
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                
+                color: #777;
+                font-size: 12px;
+            }
+            
+            .result-count {
+                color: #fff;
+                font-weight: bold;
+            }
+            
+            
+            /* =========================
+           車両一覧
+        ========================= */
+            
+            .catalog {
+                max-width: 1200px;
+                
+                margin: 0 auto;
+                
+                padding: 25px 20px 80px;
+                
+                display: grid;
+                
+                grid-template-columns:
+                    repeat(4, 1fr);
+                
+                gap: 18px;
+            }
+            
+            
+            /* =========================
+           車両カード
+        ========================= */
+            
+            .card {
+                background: #1a1a1a;
+                
+                border: 1px solid #292929;
+                
+                cursor: pointer;
+                
+                overflow: hidden;
+                
+                transition:
+                    transform 0.2s,
+                    border-color 0.2s;
+            }
+            
+            .card:hover {
+                transform: translateY(-5px);
+                border-color: #555;
+            }
+            
+            
+            /* =========================
+           画像
+        ========================= */
+            
+            .car-image {
+                width: 100%;
+                
+                aspect-ratio: 1 / 0.68;
+                
+                background: #222;
+                
+                overflow: hidden;
+                
+                position: relative;
+            }
+            
+            .car-image img {
+                width: 100%;
+                height: 100%;
+                
+                object-fit: contain;
+                
+                transition: transform 0.35s;
+            }
+            
+            .card:hover .car-image img {
+                transform: scale(1.05);
+            }
+            
+            .image-number {
+                position: absolute;
+                
+                top: 10px;
+                left: 10px;
+                
+                background: rgba(0,0,0,0.7);
+                
+                color: #aaa;
+                
+                padding: 5px 8px;
+                
+                font-size: 9px;
+                
+                letter-spacing: 1px;
+            }
+            
+            .no-image {
+                width: 100%;
+                height: 100%;
+                
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                
+                color: #555;
+                
+                font-size: 12px;
+            }
+            
+            
+            /* =========================
+           車両情報
+        ========================= */
+            
+            .car-info {
+                padding: 17px;
+            }
+            
+            .brand {
+                color: #777;
+                
+                font-size: 10px;
+                
+                letter-spacing: 2px;
+                
+                margin-bottom: 5px;
+            }
+            
+            .car-name {
+                font-size: 17px;
+                
+                font-weight: bold;
+                
+                letter-spacing: 0.5px;
+            }
+            
+            .card-bottom {
+                margin-top: 17px;
+                
+                padding-top: 12px;
+                
+                border-top: 1px solid #292929;
+                
+                display: flex;
+                
+                align-items: center;
+                justify-content: space-between;
+            }
+            
+            .price {
+                color: #ff6a00;
+                
+                font-size: 17px;
+                
+                font-weight: bold;
+            }
+            
+            .view {
+                color: #666;
+                
+                font-size: 10px;
+                
+                letter-spacing: 1px;
+            }
+            
+            
+            /* =========================
+           0件
+        ========================= */
+            
+            .no-results {
+                grid-column: 1 / -1;
+                
+                text-align: center;
+                
+                padding: 80px 20px;
+                
+                color: #666;
+                
+                font-size: 14px;
+            }
+            
+            
+            /* =========================
+           スマートフォン
+        ========================= */
+            
+            @media (max-width: 900px) {
+                
+                .catalog {
+                    grid-template-columns:
+                        repeat(3, 1fr);
+                }
+                
+                .header-inner {
+                    display: block;
+                }
+                
+                .header-description {
+                    margin-top: 15px;
+                }
+                
+            }
+            
+            
+            @media (max-width: 650px) {
+                
+                header {
+                    padding: 40px 20px 30px;
+                }
+                
+                header h1 {
+                    font-size: 34px;
+                }
+                
+                .catalog {
+                    grid-template-columns:
+                        repeat(2, 1fr);
+                    
+                    gap: 10px;
+                    
+                    padding-left: 10px;
+                    padding-right: 10px;
+                }
+                
+                .search-area,
+                .category-area,
+                .result-area {
+                    padding-left: 15px;
+                    padding-right: 15px;
+                }
+                
+                .car-info {
+                    padding: 12px;
+                }
+                
+                .car-name {
+                    font-size: 14px;
+                }
+                
+                .price {
+                    font-size: 14px;
+                }
+                
+            }
+            
+            
+            @media (max-width: 380px) {
+                
+                .catalog {
+                    grid-template-columns: 1fr;
+                }
+                
+                header h1 {
+                    font-size: 30px;
+                }
+                
+            }
+            
+        </style>
+        
+    </head>
+    
+    
+    <body>
+        
+        
+        <!-- =========================
+         ヘッダー
+    ========================= -->
+        
+        <header>
+            
+            <div class="header-inner">
+                
+                <div class="logo-area">
+                    
+                    <div class="logo-small">
+                        GOGO MOTOR
+                    </div>
+                    
+                    <h1>
+                        VEHICLE<br>
+                        COLLECTION
+                    </h1>
+                    
+                </div>
+                
+                <div class="header-description">
+                    GOGOモーター販売車両
+                </div>
+                
+            </div>
+            
+        </header>
+        
+        
+        <!-- =========================
+         検索
+    ========================= -->
+        
+        <section class="search-area">
+            
+            <div class="search-title">
+                SEARCH VEHICLES
+            </div>
+            
+            <div class="search-box">
+                
+                <input
+                type="text"
+                id="searchInput"
+                placeholder="車両名・ブランドを検索..."
+                oninput="searchCars()"
+                >
+                
+                <button
+                    class="search-button"
+                    onclick="searchCars()"
+                    >
+                    →
+                </button>
+                
+            </div>
+            
+        </section>
+        
+        
+        <!-- =========================
+         カテゴリー
+    ========================= -->
+        
+        <section class="category-area">
+            
+            <div class="category-label">
+                CATEGORY
+            </div>
+            
+            <div class="categories">
+                
+                <button
+                    class="category active"
+                    onclick="filterCategory('All', this)"
+                    >
+                    ALL
+                </button>
+                
+                <button
+                    class="category"
+                    onclick="filterCategory('新車', this)"
+                    >
+                    新車
+                </button>
+                
+                <button
+                    class="category"
+                    onclick="filterCategory('コンパクト', this)"
+                    >
+                    コンパクト
+                </button>
+                
+                <button
+                    class="category"
+                    onclick="filterCategory('セダン', this)"
+                    >
+                    セダン
+                </button>
+                
+                <button
+                    class="category"
+                    onclick="filterCategory('SUV', this)"
+                    >
+                    SUV
+                </button>
+                
+                <button
+                    class="category"
+                    onclick="filterCategory('クーペ', this)"
+                    >
+                    クーペ
+                </button>
+                
+                <button
+                    class="category"
+                    onclick="filterCategory('オフロード', this)"
+                    >
+                    オフロード
+                </button>
+                
+                <button
+                    class="category"
+                    onclick="filterCategory('バン', this)"
+                    >
+                    バン
+                </button>
+                
+                <button
+                    class="category"
+                    onclick="filterCategory('マッスル', this)"
+                    >
+                    マッスル
+                </button>
+                
+                <button
+                    class="category"
+                    onclick="filterCategory('スポーツクラシック', this)"
+                    >
+                    スポーツクラシック
+                </button>
+                
+                <button
+                    class="category"
+                    onclick="filterCategory('スポーツ', this)"
+                    >
+                    スポーツ
+                </button>
+                
+                <button
+                    class="category"
+                    onclick="filterCategory('スーパー', this)"
+                    >
+                    スーパー
+                </button>
+                
+                <button
+                    class="category"
+                    onclick="filterCategory('バイク', this)"
+                    >
+                    バイク
+                </button>
+                
+                <button
+                    class="category"
+                    onclick="filterCategory('自転車', this)"
+                    >
+                    自転車
+                </button>
+                
+                <button
+                    class="category"
+                    onclick="filterCategory('スペシャル', this)"
+                    >
+                    スペシャル
+                </button>
+                
+                <button
+                    class="category"
+                    onclick="filterCategory('ドリフト', this)"
+                    >
+                    ドリフト
+                </button>
+                
+                <button
+                    class="category"
+                    onclick="filterCategory('ヘリ', this)"
+                    >
+                    ヘリ
+                </button>
+                
+                <button
+                    class="category"
+                    onclick="filterCategory('船舶', this)"
+                    >
+                    船舶
+                </button>
+                
+                <button
+                    class="category"
+                    onclick="filterCategory('公務員限定', this)"
+                    >
+                    公務員限定
+                </button>
+                
+            </div>
+            
+        </section>
+        
+        
+        <!-- =========================
+         件数
+    ========================= -->
+        
+        <div class="result-area">
+            
+            <div>
+                VEHICLES
+            </div>
+            
+            <div>
+                <span
+                    id="resultCount"
+                    class="result-count"
+                    >
+                    0
+                </span>
+                件
+            </div>
+            
+        </div>
+        
+        
+        <!-- =========================
+         車両一覧
+    ========================= -->
+        
+        <main
+        class="catalog"
+        id="catalog"
+        ></main>
+        
+        
+        <script>
+            
+            
+            /* =========================================
+           車両データ
+        ========================================= */
+            
+            const cars = [
+            
+            {
+                name: "DCP Mochi",
+                brand: "",
+                price: 16000000,
+                category: "コンパクト",
+                image: "mochi1.webp"
+            },
+            
+            {
+                name: "Nagasaki Blazer",
+                brand: "",
+                price: 800000,
+                category: "オフロード",
+                image: "blazer.webp"
+            },
+            
+            {
+                name: "DCP Mojave",
+                brand: "",
+                price: 18000000,
+                category: "SUV",
+                image: "Mojave.webp"
+            },
+            
+            {
+                name: "DCP Iris Z",
+                brand: "",
+                price: 5000000,
+                category: "コンパクト",
+                image: "Iris.webp"
+            }
+            
+            ];
+            
+            
+            /* =========================================
+           現在のカテゴリー
+        ========================================= */
+            
+            let currentCategory = "All";
+            
+            
+            /* =========================================
+           価格表示
+        ========================================= */
+            
+            function formatPrice(price) {
+                
+                return "¥" + price.toLocaleString("ja-JP");
+                
+            }
+            
+            
+            /* =========================================
+           車両表示
+        ========================================= */
+            
+            function displayCars(list) {
+                
+                const catalog =
+                document.getElementById("catalog");
+                
+                catalog.innerHTML = "";
+                
+                
+                if (list.length === 0) {
+                    
+                    catalog.innerHTML = `
+                    <div class="no-results">
+                    該当する車両がありません
+                    </div>
+                    `;
+                    
+                }
+                
+                
+                list.forEach((car, index) => {
+                        
+                        const card =
+                        document.createElement("div");
+                        
+                        card.className = "card";
+                        
+                        
+                        /* 画像 */
+                        
+                        let imageHTML;
+                        
+                        
+                        if (car.image) {
+                            
+                            imageHTML = `
+                            <img
+                            src="${car.image}"
+                            alt="${car.name}"
+                            loading="lazy"
+                            >
+                            `;
+                            
+                        } else {
+                            
+                            imageHTML = `
+                            <div class="no-image">
+                            IMAGE NOT AVAILABLE
+                            </div>
+                            `;
+                            
+                        }
+                        
+                        
+                        /* カード */
+                        
+                        card.innerHTML = `
+                        
+                        <div class="car-image">
+                        
+                        ${imageHTML}
+                        
+                        <div class="image-number">
+                        ${String(index + 1).padStart(2, "0")}
+                        </div>
+                        
+                        </div>
+                        
+                        
+                        <div class="car-info">
+                        
+                        <div class="brand">
+                        ${car.brand || "GOGO MOTOR"}
+                        </div>
+                        
+                        <div class="car-name">
+                        ${car.name}
+                        </div>
+                        
+                        
+                        <div class="card-bottom">
+                        
+                        <div class="price">
+                        ${formatPrice(car.price)}
+                        </div>
+                        
+                        <div class="view">
+                        VIEW →
+                        </div>
+                        
+                        </div>
+                        
+                        </div>
+                        
+                        `;
+                        
+                        
+                        catalog.appendChild(card);
+                        
+                });
+                
+                
+                /* 件数 */
+                
+                document.getElementById(
+                    "resultCount"
+                ).textContent = list.length;
+                
+            }
+            
+            
+            /* =========================================
+           カテゴリー変更
+        ========================================= */
+            
+            function filterCategory(category, button) {
+                
+                currentCategory = category;
+                
+                
+                document
+                .querySelectorAll(".category")
+                .forEach(btn => {
+                        
+                        btn.classList.remove("active");
+                        
+                });
+                
+                
+                button.classList.add("active");
+                
+                
+                searchCars();
+                
+            }
+            
+            
+            /* =========================================
+           検索
+        ========================================= */
+            
+            function searchCars() {
+                
+                const keyword =
+                document
+                .getElementById("searchInput")
+                .value
+                .toLowerCase();
+                
+                
+                const result =
+                cars.filter(car => {
+                        
+                        
+                        /* カテゴリー */
+                        
+                        const matchCategory =
+                        currentCategory === "All" ||
+                        car.category === currentCategory;
+                        
+                        
+                        /* キーワード */
+                        
+                        const matchKeyword =
+                        car.name
+                        .toLowerCase()
+                        .includes(keyword)
+                        
+                        ||
+                        
+                        car.brand
+                        .toLowerCase()
+                        .includes(keyword);
+                        
+                        
+                        return (
+                            matchCategory &&
+                            matchKeyword
+                        );
+                        
+                });
+                
+                
+                displayCars(result);
+                
+            }
+            
+            
+            /* =========================================
+           初期表示
+        ========================================= */
+            
+            displayCars(cars);
+            
+            
+        </script>
+        
+        
+    </body>
+    
+</html>
